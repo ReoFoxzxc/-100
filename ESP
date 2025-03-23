@@ -1,0 +1,77 @@
+-- ESP.lua
+print("Starting ESP script...")
+
+local espEnabled = false
+local highlights = {}
+
+-- Функция для обновления ESP
+local function updateESP()
+    print("Updating ESP...")
+    for _, player in pairs(game.Players:GetPlayers()) do
+        if player ~= game.Players.LocalPlayer then
+            local character = player.Character
+            if character then
+                -- Удаляем старую подсветку, если она есть
+                if highlights[player] then
+                    highlights[player]:Destroy()
+                    highlights[player] = nil
+                end
+                -- Добавляем новую подсветку, если ESP включён
+                if espEnabled then
+                    local highlight = Instance.new("Highlight")
+                    highlight.FillColor = Color3.fromRGB(255, 0, 0) -- Красная заливка
+                    highlight.OutlineColor = Color3.fromRGB(255, 255, 255) -- Белая обводка
+                    highlight.Parent = character
+                    highlights[player] = highlight
+                end
+            end
+        end
+    end
+end
+
+-- Включение/выключение ESP через глобальную функцию
+_G.ToggleESP = function()
+    espEnabled = not espEnabled
+    print("ESP " .. (espEnabled and "enabled" or "disabled"))
+    updateESP()
+end
+
+-- Обновление при появлении новых игроков
+game.Players.PlayerAdded:Connect(function(player)
+    if player ~= game.Players.LocalPlayer then
+        player.CharacterAdded:Connect(function(character)
+            if espEnabled then
+                local highlight = Instance.new("Highlight")
+                highlight.FillColor = Color3.fromRGB(255, 0, 0)
+                highlight.OutlineColor = Color3.fromRGB(255, 255, 255)
+                highlight.Parent = character
+                highlights[player] = highlight
+            end
+        end)
+    end
+end)
+
+-- Обновление при респавне
+for _, player in pairs(game.Players:GetPlayers()) do
+    if player ~= game.Players.LocalPlayer then
+        player.CharacterAdded:Connect(function(character)
+            if espEnabled then
+                local highlight = Instance.new("Highlight")
+                highlight.FillColor = Color3.fromRGB(255, 0, 0)
+                highlight.OutlineColor = Color3.fromRGB(255, 255, 255)
+                highlight.Parent = character
+                highlights[player] = highlight
+            end
+        end)
+    end
+end
+
+-- Удаление подсветки, когда игрок покидает игру
+game.Players.PlayerRemoving:Connect(function(player)
+    if highlights[player] then
+        highlights[player]:Destroy()
+        highlights[player] = nil
+    end
+end)
+
+print("ESP script loaded successfully! Use _G.ToggleESP() to enable/disable ESP.")
