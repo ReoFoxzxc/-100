@@ -1,134 +1,111 @@
--- GUI
-local ScreenGui = Instance.new("ScreenGui")
-ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-ScreenGui.Name = "AntiCheatTestGui"
+loadstring([[
 
-local MainFrame = Instance.new("Frame")
-MainFrame.Size = UDim2.new(0, 300, 0, 200)
-MainFrame.Position = UDim2.new(0.5, -150, 0.5, -100)
-MainFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-MainFrame.BorderSizePixel = 0
-MainFrame.Parent = ScreenGui
+print("Starting GUI script...")
 
-local Title = Instance.new("TextLabel")
-Title.Size = UDim2.new(1, 0, 0, 30)
-Title.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-Title.Text = "AntiCheat Test GUI"
-Title.TextColor3 = Color3.fromRGB(255, 255, 255)
-Title.TextSize = 18
-Title.Parent = MainFrame
+local success, errorMsg = pcall(function()
+    -- GUI
+    local ScreenGui = Instance.new("ScreenGui")
+    ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+    ScreenGui.Name = "AntiCheatTestGui"
+    print("ScreenGui created")
 
-local TabFrame = Instance.new("Frame")
-TabFrame.Size = UDim2.new(1, 0, 0, 30)
-TabFrame.Position = UDim2.new(0, 0, 0, 30)
-TabFrame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-TabFrame.Parent = MainFrame
+    local MainFrame = Instance.new("Frame")
+    MainFrame.Size = UDim2.new(0, 300, 0, 200)
+    MainFrame.Position = UDim2.new(0.5, -150, 0.5, -100)
+    MainFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+    MainFrame.BorderSizePixel = 0
+    MainFrame.Parent = ScreenGui
+    print("MainFrame created")
 
-local CombatTab = Instance.new("TextButton")
-CombatTab.Size = UDim2.new(0.33, 0, 1, 0)
-CombatTab.Position = UDim2.new(0, 0, 0, 0)
-CombatTab.Text = "Combat"
-CombatTab.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
-CombatTab.TextColor3 = Color3.fromRGB(255, 255, 255)
-CombatTab.Parent = TabFrame
+    local Title = Instance.new("TextLabel")
+    Title.Size = UDim2.new(1, 0, 0, 30)
+    Title.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+    Title.Text = "AntiCheat Test GUI"
+    Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+    Title.TextSize = 18
+    Title.Parent = MainFrame
+    print("Title created")
 
-local VisualsTab = Instance.new("TextButton")
-VisualsTab.Size = UDim2.new(0.33, 0, 1, 0)
-VisualsTab.Position = UDim2.new(0.33, 0, 0, 0)
-VisualsTab.Text = "Visuals"
-VisualsTab.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
-VisualsTab.TextColor3 = Color3.fromRGB(255, 255, 255)
-VisualsTab.Parent = TabFrame
+    local TabFrame = Instance.new("Frame")
+    TabFrame.Size = UDim2.new(1, 0, 0, 30)
+    TabFrame.Position = UDim2.new(0, 0, 0, 30)
+    TabFrame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+    TabFrame.Parent = MainFrame
+    print("TabFrame created")
 
-local MiscTab = Instance.new("TextButton")
-MiscTab.Size = UDim2.new(0.33, 0, 1, 0)
-MiscTab.Position = UDim2.new(0.66, 0, 0, 0)
-MiscTab.Text = "Misc"
-MiscTab.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
-MiscTab.TextColor3 = Color3.fromRGB(255, 255, 255)
-MiscTab.Parent = TabFrame
+    local CombatTab = Instance.new("TextButton")
+    CombatTab.Size = UDim2.new(0.33, 0, 1, 0)
+    CombatTab.Position = UDim2.new(0, 0, 0, 0)
+    CombatTab.Text = "Combat"
+    CombatTab.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+    CombatTab.TextColor3 = Color3.fromRGB(255, 255, 255)
+    CombatTab.Parent = TabFrame
+    print("CombatTab created")
 
-local CombatContent = Instance.new("Frame")
-CombatContent.Size = UDim2.new(1, 0, 0, 140)
-CombatContent.Position = UDim2.new(0, 0, 0, 60)
-CombatContent.BackgroundTransparency = 1
-CombatContent.Parent = MainFrame
-CombatContent.Visible = true
+    local VisualsTab = Instance.new("TextButton")
+    VisualsTab.Size = UDim2.new(0.33, 0, 1, 0)
+    VisualsTab.Position = UDim2.new(0.33, 0, 0, 0)
+    VisualsTab.Text = "Visuals"
+    VisualsTab.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+    VisualsTab.TextColor3 = Color3.fromRGB(255, 255, 255)
+    VisualsTab.Parent = TabFrame
+    print("VisualsTab created")
 
-local VisualsContent = Instance.new("Frame")
-VisualsContent.Size = UDim2.new(1, 0, 0, 140)
-VisualsContent.Position = UDim2.new(0, 0, 0, 60)
-VisualsContent.BackgroundTransparency = 1
-VisualsContent.Parent = MainFrame
-VisualsContent.Visible = false
+    local MiscTab = Instance.new("TextButton")
+    MiscTab.Size = UDim2.new(0.33, 0, 1, 0)
+    MiscTab.Position = UDim2.new(0.66, 0, 0, 0)
+    MiscTab.Text = "Misc"
+    MiscTab.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+    MiscTab.TextColor3 = Color3.fromRGB(255, 255, 255)
+    MiscTab.Parent = TabFrame
+    print("MiscTab created")
 
-local MiscContent = Instance.new("Frame")
-MiscContent.Size = UDim2.new(1, 0, 0, 140)
-MiscContent.Position = UDim2.new(0, 0, 0, 60)
-MiscContent.BackgroundTransparency = 1
-MiscContent.Parent = MainFrame
-MiscContent.Visible = false
-
-CombatTab.MouseButton1Click:Connect(function()
+    local CombatContent = Instance.new("Frame")
+    CombatContent.Size = UDim2.new(1, 0, 0, 140)
+    CombatContent.Position = UDim2.new(0, 0, 0, 60)
+    CombatContent.BackgroundTransparency = 1
+    CombatContent.Parent = MainFrame
     CombatContent.Visible = true
+    print("CombatContent created")
+
+    local VisualsContent = Instance.new("Frame")
+    VisualsContent.Size = UDim2.new(1, 0, 0, 140)
+    VisualsContent.Position = UDim2.new(0, 0, 0, 60)
+    VisualsContent.BackgroundTransparency = 1
+    VisualsContent.Parent = MainFrame
     VisualsContent.Visible = false
+    print("VisualsContent created")
+
+    local MiscContent = Instance.new("Frame")
+    MiscContent.Size = UDim2.new(1, 0, 0, 140)
+    MiscContent.Position = UDim2.new(0, 0, 0, 60)
+    MiscContent.BackgroundTransparency = 1
+    MiscContent.Parent = MainFrame
     MiscContent.Visible = false
-    CombatTab.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
-    VisualsTab.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
-    MiscTab.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
-end)
+    print("MiscContent created")
 
-VisualsTab.MouseButton1Click:Connect(function()
-    CombatContent.Visible = false
-    VisualsContent.Visible = true
-    MiscContent.Visible = false
-    CombatTab.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
-    VisualsTab.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
-    MiscTab.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
-end)
+    CombatTab.MouseButton1Click:Connect(function()
+        CombatContent.Visible = true
+        VisualsContent.Visible = false
+        MiscContent.Visible = false
+        CombatTab.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
+        VisualsTab.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+        MiscTab.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+    end)
 
-MiscTab.MouseButton1Click:Connect(function()
-    CombatContent.Visible = false
-    VisualsContent.Visible = false
-    MiscContent.Visible = true
-    CombatTab.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
-    VisualsTab.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
-    MiscTab.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
-end)
+    VisualsTab.MouseButton1Click:Connect(function()
+        CombatContent.Visible = false
+        VisualsContent.Visible = true
+        MiscContent.Visible = false
+        CombatTab.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+        VisualsTab.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
+        MiscTab.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+    end)
 
-local UserInputService = game:GetService("UserInputService")
-local dragging = false
-local dragInput = nil
-local dragStart = nil
-local startPos = nil
-
-Title.InputBegan:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-        dragging = true
-        dragStart = input.Position
-        startPos = MainFrame.Position
-        input.Changed:Connect(function()
-            if input.UserInputState == Enum.UserInputState.End then
-                dragging = false
-            end
-        end)
-    end
-end)
-
-UserInputService.InputChanged:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
-        dragInput = input
-    end
-end)
-
-game:GetService("RunService").RenderStepped:Connect(function()
-    if dragging and dragInput then
-        local delta = dragInput.Position - dragStart
-        MainFrame.Position = UDim2.new(
-            startPos.X.Scale,
-            startPos.X.Offset + delta.X,
-            startPos.Y.Scale,
-            startPos.Y.Offset + delta.Y
-        )
-    end
-end)
+    MiscTab.MouseButton1Click:Connect(function()
+        CombatContent.Visible = false
+        VisualsContent.Visible = false
+        MiscContent.Visible = true
+        CombatTab.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+        VisualsTab.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+        MiscTab.Background
