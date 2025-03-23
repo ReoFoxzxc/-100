@@ -5,7 +5,7 @@ local success, errorMsg = pcall(function()
     -- GUI
     local ScreenGui = Instance.new("ScreenGui")
     ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-    ScreenGui.Name = "AntiCheatTestGui"
+    ScreenGui.Name = "-100"
     print("ScreenGui created")
 
     local MainFrame = Instance.new("Frame")
@@ -191,7 +191,7 @@ local success, errorMsg = pcall(function()
     print("RightShift bind setup complete")
 
     -- Подключение функций из Functions.lua
-    local Functions = loadstring(game:HttpGet("https://raw.githubusercontent.com/ТВОЙ_ЮЗЕРНЕЙМ/AntiCheatTest/main/Functions.lua"))()
+    local Functions = loadstring(game:HttpGet("https://raw.githubusercontent.com/ReoFoxzxc/-100/main/Functions"))()
     Functions.Init(VisualsContent, CombatContent, MiscContent)
 
     print("GUI script loaded successfully!")
