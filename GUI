@@ -191,7 +191,7 @@ local success, errorMsg = pcall(function()
     print("RightShift bind setup complete")
 
     -- Подключение функций из Functions.lua
-    local Functions = loadstring(game:HttpGet("https://raw.githubusercontent.com/ReoFoxzxc/-100/main/Functions"))()
+    local Functions = loadstring(game:HttpGet("https://raw.githubusercontent.com/ReoFoxzxc/-100/refs/heads/main/Functions"))()
     Functions.Init(VisualsContent, CombatContent, MiscContent)
 
     print("GUI script loaded successfully!")
