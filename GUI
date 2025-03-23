@@ -20,6 +20,7 @@ local success, errorMsg = pcall(function()
     local MainFrameCorner = Instance.new("UICorner")
     MainFrameCorner.CornerRadius = UDim.new(0, 10)
     MainFrameCorner.Parent = MainFrame
+    print("MainFrameCorner created")
 
     local Title = Instance.new("TextLabel")
     Title.Size = UDim2.new(1, 0, 0, 30)
@@ -34,6 +35,7 @@ local success, errorMsg = pcall(function()
     local TitleCorner = Instance.new("UICorner")
     TitleCorner.CornerRadius = UDim.new(0, 10)
     TitleCorner.Parent = Title
+    print("TitleCorner created")
 
     local TabFrame = Instance.new("Frame")
     TabFrame.Size = UDim2.new(1, 0, 0, 30)
@@ -46,6 +48,7 @@ local success, errorMsg = pcall(function()
     local TabFrameCorner = Instance.new("UICorner")
     TabFrameCorner.CornerRadius = UDim.new(0, 5)
     TabFrameCorner.Parent = TabFrame
+    print("TabFrameCorner created")
 
     local CombatTab = Instance.new("TextButton")
     CombatTab.Size = UDim2.new(0.33, 0, 1, 0)
@@ -60,6 +63,7 @@ local success, errorMsg = pcall(function()
     local CombatTabCorner = Instance.new("UICorner")
     CombatTabCorner.CornerRadius = UDim.new(0, 5)
     CombatTabCorner.Parent = CombatTab
+    print("CombatTabCorner created")
 
     local VisualsTab = Instance.new("TextButton")
     VisualsTab.Size = UDim2.new(0.33, 0, 1, 0)
@@ -74,6 +78,7 @@ local success, errorMsg = pcall(function()
     local VisualsTabCorner = Instance.new("UICorner")
     VisualsTabCorner.CornerRadius = UDim.new(0, 5)
     VisualsTabCorner.Parent = VisualsTab
+    print("VisualsTabCorner created")
 
     local MiscTab = Instance.new("TextButton")
     MiscTab.Size = UDim2.new(0.33, 0, 1, 0)
@@ -88,6 +93,7 @@ local success, errorMsg = pcall(function()
     local MiscTabCorner = Instance.new("UICorner")
     MiscTabCorner.CornerRadius = UDim.new(0, 5)
     MiscTabCorner.Parent = MiscTab
+    print("MiscTabCorner created")
 
     -- Контент для вкладок
     local CombatContent = Instance.new("Frame")
@@ -122,6 +128,7 @@ local success, errorMsg = pcall(function()
         CombatTab.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
         VisualsTab.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
         MiscTab.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+        print("Switched to Combat tab")
     end)
 
     VisualsTab.MouseButton1Click:Connect(function()
@@ -131,6 +138,7 @@ local success, errorMsg = pcall(function()
         CombatTab.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
         VisualsTab.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
         MiscTab.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+        print("Switched to Visuals tab")
     end)
 
     MiscTab.MouseButton1Click:Connect(function()
@@ -140,107 +148,9 @@ local success, errorMsg = pcall(function()
         CombatTab.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
         VisualsTab.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
         MiscTab.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+        print("Switched to Misc tab")
     end)
     print("Tabs setup complete")
-
-    -- ESP: Чекбокс во вкладке Visuals
-    local ESPLabel = Instance.new("TextLabel")
-    ESPLabel.Size = UDim2.new(0, 100, 0, 20)
-    ESPLabel.Position = UDim2.new(0, 10, 0, 10)
-    ESPLabel.BackgroundTransparency = 1
-    ESPLabel.Text = "ESP"
-    ESPLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-    ESPLabel.TextSize = 14
-    ESPLabel.Parent = VisualsContent
-    print("ESP label created")
-
-    local ESPToggle = Instance.new("TextButton")
-    ESPToggle.Size = UDim2.new(0, 20, 0, 20)
-    ESPToggle.Position = UDim2.new(0, 120, 0, 10)
-    ESPToggle.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-    ESPToggle.Text = ""
-    ESPToggle.Parent = VisualsContent
-    print("ESP toggle created")
-
-    local ESPCorner = Instance.new("UICorner")
-    ESPCorner.CornerRadius = UDim.new(0, 5)
-    ESPCorner.Parent = ESPToggle
-    print("ESP corner created")
-
-    local espEnabled = false
-    local highlights = {}
-
-    -- Функция для обновления ESP
-    local function updateESP()
-        print("Updating ESP...")
-        for _, player in pairs(game.Players:GetPlayers()) do
-            if player ~= game.Players.LocalPlayer then
-                local character = player.Character
-                if character then
-                    -- Удаляем старую подсветку, если она есть
-                    if highlights[player] then
-                        highlights[player]:Destroy()
-                        highlights[player] = nil
-                    end
-                    -- Добавляем новую подсветку, если ESP включён
-                    if espEnabled then
-                        local highlight = Instance.new("Highlight")
-                        highlight.FillColor = Color3.fromRGB(255, 0, 0) -- Красная заливка
-                        highlight.OutlineColor = Color3.fromRGB(255, 255, 255) -- Белая обводка
-                        highlight.Parent = character
-                        highlights[player] = highlight
-                    end
-                end
-            end
-        end
-    end
-
-    -- Включение/выключение ESP через чекбокс
-    ESPToggle.MouseButton1Click:Connect(function()
-        espEnabled = not espEnabled
-        ESPToggle.BackgroundColor3 = espEnabled and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
-        print("ESP " .. (espEnabled and "enabled" or "disabled"))
-        updateESP()
-    end)
-
-    -- Обновление при появлении новых игроков
-    game.Players.PlayerAdded:Connect(function(player)
-        if player ~= game.Players.LocalPlayer then
-            player.CharacterAdded:Connect(function(character)
-                if espEnabled then
-                    local highlight = Instance.new("Highlight")
-                    highlight.FillColor = Color3.fromRGB(255, 0, 0)
-                    highlight.OutlineColor = Color3.fromRGB(255, 255, 255)
-                    highlight.Parent = character
-                    highlights[player] = highlight
-                end
-            end)
-        end
-    end)
-
-    -- Обновление при респавне
-    for _, player in pairs(game.Players:GetPlayers()) do
-        if player ~= game.Players.LocalPlayer then
-            player.CharacterAdded:Connect(function(character)
-                if espEnabled then
-                    local highlight = Instance.new("Highlight")
-                    highlight.FillColor = Color3.fromRGB(255, 0, 0)
-                    highlight.OutlineColor = Color3.fromRGB(255, 255, 255)
-                    highlight.Parent = character
-                    highlights[player] = highlight
-                end
-            end)
-        end
-    end)
-
-    -- Удаление подсветки, когда игрок покидает игру
-    game.Players.PlayerRemoving:Connect(function(player)
-        if highlights[player] then
-            highlights[player]:Destroy()
-            highlights[player] = nil
-        end
-    end)
-    print("ESP setup complete!")
 
     -- Перетаскивание
     local UserInputService = game:GetService("UserInputService")
@@ -285,6 +195,7 @@ local success, errorMsg = pcall(function()
     UserInputService.InputBegan:Connect(function(input)
         if input.KeyCode == Enum.KeyCode.RightShift then
             ScreenGui.Enabled = not ScreenGui.Enabled
+            print("GUI " .. (ScreenGui.Enabled and "shown" or "hidden"))
         end
     end)
     print("RightShift bind setup complete")
