@@ -1,3 +1,5 @@
+loadstring([[
+
 -- GUI
 local ScreenGui = Instance.new("ScreenGui")
 ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
@@ -69,6 +71,7 @@ MiscContent.BackgroundTransparency = 1
 MiscContent.Parent = MainFrame
 MiscContent.Visible = false
 
+-- Переключение вкладок
 CombatTab.MouseButton1Click:Connect(function()
     CombatContent.Visible = true
     VisualsContent.Visible = false
@@ -96,21 +99,35 @@ MiscTab.MouseButton1Click:Connect(function()
     MiscTab.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
 end)
 
+-- Улучшенная логика перетаскивания
+local UserInputService = game:GetService("UserInputService")
 local dragging = false
+local dragInput = nil
 local dragStart = nil
 local startPos = nil
 
 Title.InputBegan:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseButton1 then
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
         dragging = true
         dragStart = input.Position
         startPos = MainFrame.Position
+        input.Changed:Connect(function()
+            if input.UserInputState == Enum.UserInputState.End then
+                dragging = false
+            end
+        end)
     end
 end)
 
-Title.InputChanged:Connect(function(input)
-    if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
-        local delta = input.Position - dragStart
+UserInputService.InputChanged:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+        dragInput = input
+    end
+end)
+
+game:GetService("RunService").RenderStepped:Connect(function()
+    if dragging and dragInput then
+        local delta = dragInput.Position - dragStart
         MainFrame.Position = UDim2.new(
             startPos.X.Scale,
             startPos.X.Offset + delta.X,
@@ -120,8 +137,4 @@ Title.InputChanged:Connect(function(input)
     end
 end)
 
-Title.InputEnded:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseButton1 then
-        dragging = false
-    end
-end)
+]])()
