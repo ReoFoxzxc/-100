@@ -1,4 +1,5 @@
--- GUI
+print("Starting GUI script...")
+
 local ScreenGui = Instance.new("ScreenGui")
 ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 ScreenGui.Name = "AntiCheatTestGui"
@@ -105,4 +106,81 @@ VisualsTab.MouseButton1Click:Connect(function()
     MiscTab.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
 end)
 
-MiscTab.MouseButton1Click:Connect
+MiscTab.MouseButton1Click:Connect(function()
+    CombatContent.Visible = false
+    VisualsContent.Visible = false
+    MiscContent.Visible = true
+    CombatTab.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+    VisualsTab.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+    MiscTab.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
+end)
+
+local UserInputService = game:GetService("UserInputService")
+local dragging = false
+local dragInput = nil
+local dragStart = nil
+local startPos = nil
+
+Title.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+        dragging = true
+        dragStart = input.Position
+        startPos = MainFrame.Position
+        input.Changed:Connect(function()
+            if input.UserInputState == Enum.UserInputState.End then
+                dragging = false
+            end
+        end)
+    end
+end)
+
+UserInputService.InputChanged:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+        dragInput = input
+    end
+end)
+
+game:GetService("RunService").RenderStepped:Connect(function()
+    if dragging and dragInput then
+        local delta = dragInput.Position - dragStart
+        MainFrame.Position = UDim2.new(
+            startPos.X.Scale,
+            startPos.X.Offset + delta.X,
+            startPos.Y.Scale,
+            startPos.Y.Offset + delta.Y
+        )
+    end
+end)
+
+local isMinimized = false
+local originalSize = MainFrame.Size
+
+CloseButton.MouseButton1Click:Connect(function()
+    ScreenGui.Enabled = false
+end)
+
+MinimizeButton.MouseButton1Click:Connect(function()
+    if isMinimized then
+        MainFrame.Size = originalSize
+        TabFrame.Visible = true
+        CombatContent.Visible = true
+        MinimizeButton.Text = "-"
+        isMinimized = false
+    else
+        MainFrame.Size = UDim2.new(0, 300, 0, 30)
+        TabFrame.Visible = false
+        CombatContent.Visible = false
+        VisualsContent.Visible = false
+        MiscContent.Visible = false
+        MinimizeButton.Text = "+"
+        isMinimized = true
+    end
+end)
+
+UserInputService.InputBegan:Connect(function(input)
+    if input.KeyCode == Enum.KeyCode.RightShift then
+        ScreenGui.Enabled = not ScreenGui.Enabled
+    end
+end)
+
+print("GUI script loaded successfully!")
