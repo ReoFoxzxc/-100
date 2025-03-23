@@ -143,6 +143,105 @@ local success, errorMsg = pcall(function()
     end)
     print("Tabs setup complete")
 
+    -- ESP: Чекбокс во вкладке Visuals
+    local ESPLabel = Instance.new("TextLabel")
+    ESPLabel.Size = UDim2.new(0, 100, 0, 20)
+    ESPLabel.Position = UDim2.new(0, 10, 0, 10)
+    ESPLabel.BackgroundTransparency = 1
+    ESPLabel.Text = "ESP"
+    ESPLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    ESPLabel.TextSize = 14
+    ESPLabel.Parent = VisualsContent
+    print("ESP label created")
+
+    local ESPToggle = Instance.new("TextButton")
+    ESPToggle.Size = UDim2.new(0, 20, 0, 20)
+    ESPToggle.Position = UDim2.new(0, 120, 0, 10)
+    ESPToggle.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+    ESPToggle.Text = ""
+    ESPToggle.Parent = VisualsContent
+    print("ESP toggle created")
+
+    local ESPCorner = Instance.new("UICorner")
+    ESPCorner.CornerRadius = UDim.new(0, 5)
+    ESPCorner.Parent = ESPToggle
+    print("ESP corner created")
+
+    local espEnabled = false
+    local highlights = {}
+
+    -- Функция для обновления ESP
+    local function updateESP()
+        print("Updating ESP...")
+        for _, player in pairs(game.Players:GetPlayers()) do
+            if player ~= game.Players.LocalPlayer then
+                local character = player.Character
+                if character then
+                    -- Удаляем старую подсветку, если она есть
+                    if highlights[player] then
+                        highlights[player]:Destroy()
+                        highlights[player] = nil
+                    end
+                    -- Добавляем новую подсветку, если ESP включён
+                    if espEnabled then
+                        local highlight = Instance.new("Highlight")
+                        highlight.FillColor = Color3.fromRGB(255, 0, 0) -- Красная заливка
+                        highlight.OutlineColor = Color3.fromRGB(255, 255, 255) -- Белая обводка
+                        highlight.Parent = character
+                        highlights[player] = highlight
+                    end
+                end
+            end
+        end
+    end
+
+    -- Включение/выключение ESP через чекбокс
+    ESPToggle.MouseButton1Click:Connect(function()
+        espEnabled = not espEnabled
+        ESPToggle.BackgroundColor3 = espEnabled and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
+        print("ESP " .. (espEnabled and "enabled" or "disabled"))
+        updateESP()
+    end)
+
+    -- Обновление при появлении новых игроков
+    game.Players.PlayerAdded:Connect(function(player)
+        if player ~= game.Players.LocalPlayer then
+            player.CharacterAdded:Connect(function(character)
+                if espEnabled then
+                    local highlight = Instance.new("Highlight")
+                    highlight.FillColor = Color3.fromRGB(255, 0, 0)
+                    highlight.OutlineColor = Color3.fromRGB(255, 255, 255)
+                    highlight.Parent = character
+                    highlights[player] = highlight
+                end
+            end)
+        end
+    end)
+
+    -- Обновление при респавне
+    for _, player in pairs(game.Players:GetPlayers()) do
+        if player ~= game.Players.LocalPlayer then
+            player.CharacterAdded:Connect(function(character)
+                if espEnabled then
+                    local highlight = Instance.new("Highlight")
+                    highlight.FillColor = Color3.fromRGB(255, 0, 0)
+                    highlight.OutlineColor = Color3.fromRGB(255, 255, 255)
+                    highlight.Parent = character
+                    highlights[player] = highlight
+                end
+            end)
+        end
+    end)
+
+    -- Удаление подсветки, когда игрок покидает игру
+    game.Players.PlayerRemoving:Connect(function(player)
+        if highlights[player] then
+            highlights[player]:Destroy()
+            highlights[player] = nil
+        end
+    end)
+    print("ESP setup complete!")
+
     -- Перетаскивание
     local UserInputService = game:GetService("UserInputService")
     local dragging = false
@@ -189,10 +288,6 @@ local success, errorMsg = pcall(function()
         end
     end)
     print("RightShift bind setup complete")
-
-    -- Подключение функций из Functions.lua
-    local Functions = loadstring(game:HttpGet("https://raw.githubusercontent.com/ReoFoxzxc/-100/refs/heads/main/Functions"))()
-    Functions.Init(VisualsContent, CombatContent, MiscContent)
 
     print("GUI script loaded successfully!")
 end)
