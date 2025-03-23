@@ -9,39 +9,39 @@ local success, errorMsg = pcall(function()
     print("ScreenGui created")
 
     local MainFrame = Instance.new("Frame")
-    MainFrame.Size = UDim2.new(0, 600, 0, 400)
-    MainFrame.Position = UDim2.new(0.5, -300, 0.5, -200)
-    MainFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-    MainFrame.BackgroundTransparency = 0.3
+    MainFrame.Size = UDim2.new(0, 500, 0, 400)
+    MainFrame.Position = UDim2.new(0.5, -250, 0.5, -200)
+    MainFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+    MainFrame.BackgroundTransparency = 0.1
     MainFrame.BorderSizePixel = 0
     MainFrame.Parent = ScreenGui
     print("MainFrame created")
 
     local MainFrameCorner = Instance.new("UICorner")
-    MainFrameCorner.CornerRadius = UDim.new(0, 10)
+    MainFrameCorner.CornerRadius = UDim.new(0, 5)
     MainFrameCorner.Parent = MainFrame
     print("MainFrameCorner created")
 
     local Title = Instance.new("TextLabel")
-    Title.Size = UDim2.new(1, 0, 0, 30)
-    Title.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-    Title.BackgroundTransparency = 0.3
-    Title.Text = "-100"
+    Title.Size = UDim2.new(1, 0, 0, 25)
+    Title.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+    Title.BackgroundTransparency = 0.1
+    Title.Text = "Matcha - 3 dyl"
     Title.TextColor3 = Color3.fromRGB(255, 255, 255)
-    Title.TextSize = 18
+    Title.TextSize = 14
     Title.Parent = MainFrame
     print("Title created")
 
     local TitleCorner = Instance.new("UICorner")
-    TitleCorner.CornerRadius = UDim.new(0, 10)
+    TitleCorner.CornerRadius = UDim.new(0, 5)
     TitleCorner.Parent = Title
     print("TitleCorner created")
 
     local TabFrame = Instance.new("Frame")
-    TabFrame.Size = UDim2.new(1, 0, 0, 30)
-    TabFrame.Position = UDim2.new(0, 0, 0, 30)
-    TabFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-    TabFrame.BackgroundTransparency = 0.3
+    TabFrame.Size = UDim2.new(1, 0, 0, 25)
+    TabFrame.Position = UDim2.new(0, 0, 0, 25)
+    TabFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+    TabFrame.BackgroundTransparency = 0.1
     TabFrame.Parent = MainFrame
     print("TabFrame created")
 
@@ -50,109 +50,182 @@ local success, errorMsg = pcall(function()
     TabFrameCorner.Parent = TabFrame
     print("TabFrameCorner created")
 
-    local CombatTab = Instance.new("TextButton")
-    CombatTab.Size = UDim2.new(0.33, 0, 1, 0)
-    CombatTab.Position = UDim2.new(0, 0, 0, 0)
-    CombatTab.Text = "Combat"
-    CombatTab.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-    CombatTab.BackgroundTransparency = 0.3
-    CombatTab.TextColor3 = Color3.fromRGB(255, 255, 255)
-    CombatTab.Parent = TabFrame
-    print("CombatTab created")
+    -- Вкладки
+    local tabs = {"Aiming", "Visuals", "Misc", "Out", "Options", "Script Viewer", "Player List"}
+    local tabButtons = {}
+    local tabContents = {}
 
-    local CombatTabCorner = Instance.new("UICorner")
-    CombatTabCorner.CornerRadius = UDim.new(0, 5)
-    CombatTabCorner.Parent = CombatTab
-    print("CombatTabCorner created")
+    for i, tabName in ipairs(tabs) do
+        local tabButton = Instance.new("TextButton")
+        tabButton.Size = UDim2.new(1/#tabs, 0, 1, 0)
+        tabButton.Position = UDim2.new((i-1)/#tabs, 0, 0, 0)
+        tabButton.Text = tabName
+        tabButton.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+        tabButton.BackgroundTransparency = 0.1
+        tabButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+        tabButton.TextSize = 12
+        tabButton.Parent = TabFrame
+        tabButtons[tabName] = tabButton
+        print(tabName .. "Tab created")
 
-    local VisualsTab = Instance.new("TextButton")
-    VisualsTab.Size = UDim2.new(0.33, 0, 1, 0)
-    VisualsTab.Position = UDim2.new(0.33, 0, 0, 0)
-    VisualsTab.Text = "Visuals"
-    VisualsTab.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-    VisualsTab.BackgroundTransparency = 0.3
-    VisualsTab.TextColor3 = Color3.fromRGB(255, 255, 255)
-    VisualsTab.Parent = TabFrame
-    print("VisualsTab created")
-
-    local VisualsTabCorner = Instance.new("UICorner")
-    VisualsTabCorner.CornerRadius = UDim.new(0, 5)
-    VisualsTabCorner.Parent = VisualsTab
-    print("VisualsTabCorner created")
-
-    local MiscTab = Instance.new("TextButton")
-    MiscTab.Size = UDim2.new(0.33, 0, 1, 0)
-    MiscTab.Position = UDim2.new(0.66, 0, 0, 0)
-    MiscTab.Text = "Misc"
-    MiscTab.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-    MiscTab.BackgroundTransparency = 0.3
-    MiscTab.TextColor3 = Color3.fromRGB(255, 255, 255)
-    MiscTab.Parent = TabFrame
-    print("MiscTab created")
-
-    local MiscTabCorner = Instance.new("UICorner")
-    MiscTabCorner.CornerRadius = UDim.new(0, 5)
-    MiscTabCorner.Parent = MiscTab
-    print("MiscTabCorner created")
-
-    -- Контент для вкладок
-    local CombatContent = Instance.new("Frame")
-    CombatContent.Size = UDim2.new(1, 0, 0, 340)
-    CombatContent.Position = UDim2.new(0, 0, 0, 60)
-    CombatContent.BackgroundTransparency = 1
-    CombatContent.Parent = MainFrame
-    CombatContent.Visible = true
-    print("CombatContent created")
-
-    local VisualsContent = Instance.new("Frame")
-    VisualsContent.Size = UDim2.new(1, 0, 0, 340)
-    VisualsContent.Position = UDim2.new(0, 0, 0, 60)
-    VisualsContent.BackgroundTransparency = 1
-    VisualsContent.Parent = MainFrame
-    VisualsContent.Visible = false
-    print("VisualsContent created")
-
-    local MiscContent = Instance.new("Frame")
-    MiscContent.Size = UDim2.new(1, 0, 0, 340)
-    MiscContent.Position = UDim2.new(0, 0, 0, 60)
-    MiscContent.BackgroundTransparency = 1
-    MiscContent.Parent = MainFrame
-    MiscContent.Visible = false
-    print("MiscContent created")
+        local tabContent = Instance.new("Frame")
+        tabContent.Size = UDim2.new(1, 0, 0, 350)
+        tabContent.Position = UDim2.new(0, 0, 0, 50)
+        tabContent.BackgroundTransparency = 1
+        tabContent.Parent = MainFrame
+        tabContent.Visible = (tabName == "Aiming") -- По умолчанию открыта вкладка Aiming
+        tabContents[tabName] = tabContent
+        print(tabName .. "Content created")
+    end
 
     -- Переключение вкладок
-    CombatTab.MouseButton1Click:Connect(function()
-        CombatContent.Visible = true
-        VisualsContent.Visible = false
-        MiscContent.Visible = false
-        CombatTab.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
-        VisualsTab.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-        MiscTab.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-        print("Switched to Combat tab")
-    end)
-
-    VisualsTab.MouseButton1Click:Connect(function()
-        CombatContent.Visible = false
-        VisualsContent.Visible = true
-        MiscContent.Visible = false
-        CombatTab.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-        VisualsTab.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
-        MiscTab.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-        print("Switched to Visuals tab")
-    end)
-
-    MiscTab.MouseButton1Click:Connect(function()
-        CombatContent.Visible = false
-        VisualsContent.Visible = false
-        MiscContent.Visible = true
-        CombatTab.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-        VisualsTab.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-        MiscTab.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
-        print("Switched to Misc tab")
-    end)
+    for tabName, tabButton in pairs(tabButtons) do
+        tabButton.MouseButton1Click:Connect(function()
+            for _, content in pairs(tabContents) do
+                content.Visible = false
+            end
+            for _, btn in pairs(tabButtons) do
+                btn.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+            end
+            tabContents[tabName].Visible = true
+            tabButton.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+            print("Switched to " .. tabName .. " tab")
+        end)
+    end
     print("Tabs setup complete")
 
-    -- Чекбокс для управления ESP во вкладке Visuals
+    -- Вкладка Aiming
+    local AimingContent = tabContents["Aiming"]
+
+    -- Aimbot Section
+    local AimbotLabel = Instance.new("TextLabel")
+    AimbotLabel.Size = UDim2.new(0, 100, 0, 20)
+    AimbotLabel.Position = UDim2.new(0, 10, 0, 10)
+    AimbotLabel.BackgroundTransparency = 1
+    AimbotLabel.Text = "Aimbot"
+    AimbotLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    AimbotLabel.TextSize = 14
+    AimbotLabel.Parent = AimingContent
+    print("Aimbot label created")
+
+    local AimbotEnabled = Instance.new("TextButton")
+    AimbotEnabled.Size = UDim2.new(0, 20, 0, 20)
+    AimbotEnabled.Position = UDim2.new(0, 120, 0, 10)
+    AimbotEnabled.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+    AimbotEnabled.Text = ""
+    AimbotEnabled.Parent = AimingContent
+    print("Aimbot enabled toggle created")
+
+    local AimbotEnabledCorner = Instance.new("UICorner")
+    AimbotEnabledCorner.CornerRadius = UDim.new(0, 5)
+    AimbotEnabledCorner.Parent = AimbotEnabled
+    print("Aimbot enabled corner created")
+
+    local aimbotEnabled = false
+    AimbotEnabled.MouseButton1Click:Connect(function()
+        aimbotEnabled = not aimbotEnabled
+        AimbotEnabled.BackgroundColor3 = aimbotEnabled and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
+        print("Aimbot " .. (aimbotEnabled and "enabled" or "disabled"))
+    end)
+
+    -- Aimbot Distance Slider
+    local AimbotDistanceLabel = Instance.new("TextLabel")
+    AimbotDistanceLabel.Size = UDim2.new(0, 100, 0, 20)
+    AimbotDistanceLabel.Position = UDim2.new(0, 10, 0, 40)
+    AimbotDistanceLabel.BackgroundTransparency = 1
+    AimbotDistanceLabel.Text = "Distance"
+    AimbotDistanceLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    AimbotDistanceLabel.TextSize = 14
+    AimbotDistanceLabel.Parent = AimingContent
+    print("Aimbot distance label created")
+
+    local AimbotDistanceValue = Instance.new("TextBox")
+    AimbotDistanceValue.Size = UDim2.new(0, 50, 0, 20)
+    AimbotDistanceValue.Position = UDim2.new(0, 120, 0, 40)
+    Aimbot.DistanceValue.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+    AimbotDistanceValue.TextColor3 = Color3.fromRGB(255, 255, 255)
+    AimbotDistanceValue.Text = "100/2000"
+    AimbotDistanceValue.TextSize = 12
+    AimbotDistanceValue.Parent = AimingContent
+    print("Aimbot distance value created")
+
+    -- Aimbot Prediction X Slider
+    local AimbotPredXLabel = Instance.new("TextLabel")
+    AimbotPredXLabel.Size = UDim2.new(0, 100, 0, 20)
+    AimbotPredXLabel.Position = UDim2.new(0, 10, 0, 70)
+    AimbotPredXLabel.BackgroundTransparency = 1
+    AimbotPredXLabel.Text = "Prediction X"
+    AimbotPredXLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    AimbotPredXLabel.TextSize = 14
+    AimbotPredXLabel.Parent = AimingContent
+    print("Aimbot prediction X label created")
+
+    local AimbotPredXValue = Instance.new("TextBox")
+    AimbotPredXValue.Size = UDim2.new(0, 50, 0, 20)
+    AimbotPredXValue.Position = UDim2.new(0, 120, 0, 70)
+    AimbotPredXValue.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+    AimbotPredXValue.TextColor3 = Color3.fromRGB(255, 255, 255)
+    AimbotPredXValue.Text = "1.00/20.00"
+    AimbotPredXValue.TextSize = 12
+    AimbotPredXValue.Parent = AimingContent
+    print("Aimbot prediction X value created")
+
+    -- Silent Aim Section
+    local SilentAimLabel = Instance.new("TextLabel")
+    SilentAimLabel.Size = UDim2.new(0, 100, 0, 20)
+    SilentAimLabel.Position = UDim2.new(0.5, 10, 0, 10)
+    SilentAimLabel.BackgroundTransparency = 1
+    SilentAimLabel.Text = "Silent Aim"
+    SilentAimLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    SilentAimLabel.TextSize = 14
+    SilentAimLabel.Parent = AimingContent
+    print("Silent Aim label created")
+
+    local SilentAimEnabled = Instance.new("TextButton")
+    SilentAimEnabled.Size = UDim2.new(0, 20, 0, 20)
+    SilentAimEnabled.Position = UDim2.new(0.5, 120, 0, 10)
+    SilentAimEnabled.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+    SilentAimEnabled.Text = ""
+    SilentAimEnabled.Parent = AimingContent
+    print("Silent Aim enabled toggle created")
+
+    local SilentAimEnabledCorner = Instance.new("UICorner")
+    SilentAimEnabledCorner.CornerRadius = UDim.new(0, 5)
+    SilentAimEnabledCorner.Parent = SilentAimEnabled
+    print("Silent Aim enabled corner created")
+
+    local silentAimEnabled = false
+    SilentAimEnabled.MouseButton1Click:Connect(function()
+        silentAimEnabled = not silentAimEnabled
+        SilentAimEnabled.BackgroundColor3 = silentAimEnabled and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
+        print("Silent Aim " .. (silentAimEnabled and "enabled" or "disabled"))
+    end)
+
+    -- Silent FOV Size Slider
+    local SilentFOVSizeLabel = Instance.new("TextLabel")
+    SilentFOVSizeLabel.Size = UDim2.new(0, 100, 0, 20)
+    SilentFOVSizeLabel.Position = UDim2.new(0.5, 10, 0, 40)
+    SilentFOVSizeLabel.BackgroundTransparency = 1
+    SilentFOVSizeLabel.Text = "Size"
+    SilentFOVSizeLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    SilentFOVSizeLabel.TextSize = 14
+    SilentFOVSizeLabel.Parent = AimingContent
+    print("Silent FOV size label created")
+
+    local SilentFOVSizeValue = Instance.new("TextBox")
+    SilentFOVSizeValue.Size = UDim2.new(0, 50, 0, 20)
+    SilentFOVSizeValue.Position = UDim2.new(0.5, 120, 0, 40)
+    SilentFOVSizeValue.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+    SilentFOVSizeValue.TextColor3 = Color3.fromRGB(255, 255, 255)
+    SilentFOVSizeValue.Text = "100/500"
+    SilentFOVSizeValue.TextSize = 12
+    SilentFOVSizeValue.Parent = AimingContent
+    print("Silent FOV size value created")
+
+    -- Вкладка Visuals
+    local VisualsContent = tabContents["Visuals"]
+
+    -- ESP Toggle (управление ESP.lua)
     local ESPLabel = Instance.new("TextLabel")
     ESPLabel.Size = UDim2.new(0, 100, 0, 20)
     ESPLabel.Position = UDim2.new(0, 10, 0, 10)
@@ -176,10 +249,20 @@ local success, errorMsg = pcall(function()
     ESPCorner.Parent = ESPToggle
     print("ESP corner created")
 
-    local espEnabled = false
+    -- Синхронизация состояния чекбокса с ESP
+    local function updateESPToggle()
+        if _G.IsESPEnabled ~= nil then
+            ESPToggle.BackgroundColor3 = _G.IsESPEnabled and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
+        end
+    end
+
+    game:GetService("RunService").RenderStepped:Connect(function()
+        updateESPToggle()
+    end)
+
+    updateESPToggle()
+
     ESPToggle.MouseButton1Click:Connect(function()
-        espEnabled = not espEnabled
-        ESPToggle.BackgroundColor3 = espEnabled and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
         if _G.ToggleESP then
             _G.ToggleESP()
             print("ESP toggle called from GUI")
@@ -188,6 +271,43 @@ local success, errorMsg = pcall(function()
         end
     end)
     print("ESP toggle setup complete")
+
+    -- Вкладка Misc
+    local MiscContent = tabContents["Misc"]
+
+    -- Miscellaneous Teleportation Method
+    local TeleportLabel = Instance.new("TextLabel")
+    TeleportLabel.Size = UDim2.new(0, 100, 0, 20)
+    TeleportLabel.Position = UDim2.new(0, 10, 0, 10)
+    TeleportLabel.BackgroundTransparency = 1
+    TeleportLabel.Text = "Teleportation"
+    TeleportLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    TeleportLabel.TextSize = 14
+    TeleportLabel.Parent = MiscContent
+    print("Teleport label created")
+
+    local TeleportType = Instance.new("TextButton")
+    TeleportType.Size = UDim2.new(0, 60, 0, 20)
+    TeleportType.Position = UDim2.new(0, 120, 0, 10)
+    TeleportType.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+    TeleportType.TextColor3 = Color3.fromRGB(255, 255, 255)
+    TeleportType.Text = "Camera"
+    TeleportType.TextSize = 12
+    TeleportType.Parent = MiscContent
+    print("Teleport type created")
+
+    local TeleportTypeCorner = Instance.new("UICorner")
+    TeleportTypeCorner.CornerRadius = UDim.new(0, 5)
+    TeleportTypeCorner.Parent = TeleportType
+    print("Teleport type corner created")
+
+    local teleportTypes = {"Camera", "Position", "Tween"}
+    local currentTeleportTypeIndex = 1
+    TeleportType.MouseButton1Click:Connect(function()
+        currentTeleportTypeIndex = (currentTeleportTypeIndex % #teleportTypes) + 1
+        TeleportType.Text = teleportTypes[currentTeleportTypeIndex]
+        print("Teleport type set to: " .. TeleportType.Text)
+    end)
 
     -- Перетаскивание
     local UserInputService = game:GetService("UserInputService")
