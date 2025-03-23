@@ -1,0 +1,97 @@
+-- GUI
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+ScreenGui.Name = "AntiCheatTestGui"
+
+local MainFrame = Instance.new("Frame")
+MainFrame.Size = UDim2.new(0, 300, 0, 200)
+MainFrame.Position = UDim2.new(0.5, -150, 0.5, -100)
+MainFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+MainFrame.BorderSizePixel = 0
+MainFrame.Parent = ScreenGui
+
+local Title = Instance.new("TextLabel")
+Title.Size = UDim2.new(1, 0, 0, 30)
+Title.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+Title.Text = "AntiCheat Test GUI"
+Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+Title.TextSize = 18
+Title.Parent = MainFrame
+
+local TabFrame = Instance.new("Frame")
+TabFrame.Size = UDim2.new(1, 0, 0, 30)
+TabFrame.Position = UDim2.new(0, 0, 0, 30)
+TabFrame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+TabFrame.Parent = MainFrame
+
+local CombatTab = Instance.new("TextButton")
+CombatTab.Size = UDim2.new(0.33, 0, 1, 0)
+CombatTab.Position = UDim2.new(0, 0, 0, 0)
+CombatTab.Text = "Combat"
+CombatTab.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+CombatTab.TextColor3 = Color3.fromRGB(255, 255, 255)
+CombatTab.Parent = TabFrame
+
+local VisualsTab = Instance.new("TextButton")
+VisualsTab.Size = UDim2.new(0.33, 0, 1, 0)
+VisualsTab.Position = UDim2.new(0.33, 0, 0, 0)
+VisualsTab.Text = "Visuals"
+VisualsTab.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+VisualsTab.TextColor3 = Color3.fromRGB(255, 255, 255)
+VisualsTab.Parent = TabFrame
+
+local MiscTab = Instance.new("TextButton")
+MiscTab.Size = UDim2.new(0.33, 0, 1, 0)
+MiscTab.Position = UDim2.new(0.66, 0, 0, 0)
+MiscTab.Text = "Misc"
+MiscTab.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+MiscTab.TextColor3 = Color3.fromRGB(255, 255, 255)
+MiscTab.Parent = TabFrame
+
+local CombatContent = Instance.new("Frame")
+CombatContent.Size = UDim2.new(1, 0, 0, 140)
+CombatContent.Position = UDim2.new(0, 0, 0, 60)
+CombatContent.BackgroundTransparency = 1
+CombatContent.Parent = MainFrame
+CombatContent.Visible = true
+
+local VisualsContent = Instance.new("Frame")
+VisualsContent.Size = UDim2.new(1, 0, 0, 140)
+VisualsContent.Position = UDim2.new(0, 0, 0, 60)
+VisualsContent.BackgroundTransparency = 1
+VisualsContent.Parent = MainFrame
+VisualsContent.Visible = false
+
+local MiscContent = Instance.new("Frame")
+MiscContent.Size = UDim2.new(1, 0, 0, 140)
+MiscContent.Position = UDim2.new(0, 0, 0, 60)
+MiscContent.BackgroundTransparency = 1
+MiscContent.Parent = MainFrame
+MiscContent.Visible = false
+
+CombatTab.MouseButton1Click:Connect(function()
+    CombatContent.Visible = true
+    VisualsContent.Visible = false
+    MiscContent.Visible = false
+    CombatTab.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
+    VisualsTab.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+    MiscTab.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+end)
+
+VisualsTab.MouseButton1Click:Connect(function()
+    CombatContent.Visible = false
+    VisualsContent.Visible = true
+    MiscContent.Visible = false
+    CombatTab.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+    VisualsTab.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
+    MiscTab.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+end)
+
+MiscTab.MouseButton1Click:Connect(function()
+    CombatContent.Visible = false
+    VisualsContent.Visible = false
+    MiscContent.Visible = true
+    CombatTab.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+    VisualsTab.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+    MiscTab.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
+end)
