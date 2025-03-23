@@ -23,6 +23,7 @@ local function updateESP()
                     highlight.OutlineColor = Color3.fromRGB(255, 255, 255) -- Белая обводка
                     highlight.Parent = character
                     highlights[player] = highlight
+                    print("Added highlight for player: " .. player.Name)
                 end
             end
         end
@@ -46,6 +47,7 @@ game.Players.PlayerAdded:Connect(function(player)
                 highlight.OutlineColor = Color3.fromRGB(255, 255, 255)
                 highlight.Parent = character
                 highlights[player] = highlight
+                print("Added highlight for new player: " .. player.Name)
             end
         end)
     end
@@ -61,16 +63,18 @@ for _, player in pairs(game.Players:GetPlayers()) do
                 highlight.OutlineColor = Color3.fromRGB(255, 255, 255)
                 highlight.Parent = character
                 highlights[player] = highlight
+                print("Added highlight for respawned player: " .. player.Name)
             end
         end)
     end
-end
+end)
 
 -- Удаление подсветки, когда игрок покидает игру
 game.Players.PlayerRemoving:Connect(function(player)
     if highlights[player] then
         highlights[player]:Destroy()
         highlights[player] = nil
+        print("Removed highlight for player: " .. player.Name)
     end
 end)
 
